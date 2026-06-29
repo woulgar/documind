@@ -1,0 +1,86 @@
+{
+  "id": "rerank",
+  "title": "Add a Rerank box between Retrieve and Generate",
+  "createdAt": "2026-06-20",
+  "baselineCommit": "5dc01161e1d668b7cf5bb056544489415571b0bd",
+  "baselineLabel": "v1",
+  "instruction": "[PDM benchmark task \u2014 frozen]\nAdd a new box `rerank` to the Query & answer pipeline, between Retrieve and Generate.\n- Implement `retriever.py::rerank(query, docs) -> docs` that reorders the retrieved chunks so the most on-topic chunk leads the prompt.\n- Wire it into `pipeline.py::answer` after `retrieve` and before `generate`.\n- Add the box to `.pdm/flow.json` (parent `query`, connector `retrieve`, map `retriever.py::rerank`) and give it a deterministic test.\n- Keep it cheap and deterministic. Do not change any other box.\nDone = flow.json has the rerank box, the fixed query still answers correctly with a citation, and `pdm_driver.run()` measures clean.",
+  "criterion": "work / token  =  assessed_quality (0..1)  /  dev_agent_tokens. Higher = more delivered quality per token spent building it. PDM does not pick a winner automatically; the human reads the work/token column and decides.",
+  "agents": [
+    "claude",
+    "codex",
+    "claude-haiku-4-5",
+    "opencode-qwen3:4b",
+    "opencode-qwen2.5-coder"
+  ],
+  "attempts": {
+    "claude": {
+      "trace": "rerank@claude",
+      "branch": "attempt/claude",
+      "devAgentTokens": 6584,
+      "devCostSource": "git-diff ESTIMATE (real not harvestable here \u2014 see note)",
+      "runtimeTokens": 2919,
+      "assessedQuality": 0.8,
+      "workPerToken_per1k": 0.122,
+      "assessment": "Lexical rerank: length-normalized query-keyword overlap (overlap / sqrt(len)). Deterministic, zero extra runtime model call, clean and minimal, scoped exactly to the task. Fixed query still answers '2 to 8 players [monopoly.pdf p.0]'; retrieval_hit 1.0, answer_quality 1.0. The length normalization avoids favouring long chunks. Weakness: ignores term frequency; purely lexical, not semantic."
+    },
+    "codex": {
+      "trace": "rerank@codex",
+      "branch": "attempt/codex",
+      "devAgentTokens": 55891,
+      "devCostSource": "codex exec self-report (REAL)",
+      "runtimeTokens": 1614,
+      "assessedQuality": 0.85,
+      "workPerToken_per1k": 0.015,
+      "assessment": "Lexical rerank too, but richer: ranks by (coverage of query terms, total term frequency, stable original index as tiebreak). Slightly more robust ordering than Claude's. Deterministic, zero extra runtime cost, correct answer + citation, KPIs pass. Marginally better engineered. But it spent 55,891 real tokens to get there \u2014 ~8x more effort for a small quality edge over Claude's diff."
+    },
+    "opencode-qwen3:4b": {
+      "trace": null,
+      "branch": "attempt/opencode-qwen3-4b",
+      "devAgentTokens": null,
+      "devCostSource": "n/a \u2014 task not completed",
+      "assessedQuality": 0,
+      "workPerToken_per1k": 0,
+      "status": "FAILED \u2014 applied no changes",
+      "assessment": "Run twice via opencode with local qwen3:4b. Both times the model NARRATED the change (and on the 2nd try emitted a pseudo tool-call JSON, even with a wrong flow schema) but never actually invoked the file-edit tools \u2014 git diff stayed empty. See the qwen2.5-coder note: same failure mode \u2192 likely the local tool-calling bridge, not pure model incapacity."
+    },
+    "opencode-qwen2.5-coder:7b": {
+      "trace": null,
+      "branch": "attempt/opencode-qwen2.5-coder",
+      "devAgentTokens": null,
+      "devCostSource": "n/a \u2014 task not completed",
+      "assessedQuality": 0,
+      "workPerToken_per1k": 0,
+      "status": "FAILED \u2014 applied no changes",
+      "assessment": "Coding-specialized local model, expected to do better than qwen3:4b. Via opencode + Ollama (OpenAI-compatible endpoint) it EMITTED the tool calls ({\"name\":\"write\",\"arguments\":{...}}) as plain TEXT instead of structured tool invocations, so opencode never executed them \u2014 git diff stayed empty. The proposed content was also broken (rerank returning an undefined var, pipeline.py rewritten wrongly, flow.json in a made-up schema). Honest attribution: this is mainly a local tool-calling BRIDGE limitation (the openai-compat path didn't carry function-calls), compounded by weak content \u2014 NOT proof the model can't code. Both local agents (qwen3:4b + qwen2.5-coder:7b) failed the agentic multi-file edit through this path."
+    },
+    "claude-haiku-4.5": {
+      "trace": "rerank@claude-haiku-4-5",
+      "branch": "attempt/claude-haiku-4-5",
+      "devAgentTokens": 266481,
+      "devFreshTokens": 25072,
+      "devCacheReadTokens": 241409,
+      "devCostSource": "claude-log harvest (REAL)",
+      "runtimeTokens": 1550,
+      "assessedQuality": 0.75,
+      "workPerToken_per1k": 0.03,
+      "assessment": "Did the task for real with proper tool use (unlike qwen3:4b). Word-overlap lexical rerank (simplest of the three \u2014 no length normalization, no term frequency). Answer correct + cited, runs clean. Minor flaw: muddled the query sub-flow order (placed rewrite AFTER rerank: retrieve\u2192rerank\u2192rewrite\u2192generate) instead of keeping rewrite first \u2014 functionally OK but architecturally off. Cost: 266,481 total tokens but 92% are cache reads \u2192 ~25,072 FRESH tokens (PDM headlines fresh). By fresh tokens it's the cheapest real-measured agent that actually delivered."
+    }
+  },
+  "decision": {
+    "winner": "claude-haiku-4-5",
+    "label": "rerank@claude-haiku-4-5",
+    "note": "",
+    "decidedAt": "2026-06-20T22:00:16.564Z",
+    "versionLabel": "v2"
+  },
+  "status": "decided",
+  "attemptNotes": {
+    "claude": "my own attempt (dev cost = git estimate)",
+    "codex": "codex exec --full-auto (real 55.9k)",
+    "claude-haiku-4-5": "claude CLI -p --model (real, 92% cache)",
+    "opencode-qwen3:4b": "FAILED \u2014 emitted tool calls as text (no edit)",
+    "opencode-qwen2.5-coder": "FAILED \u2014 same local tool-calling bridge issue"
+  },
+  "notes": "5-agent rerank bake-off. Criterion = work/token (I assessed quality). Winner by work/token = Haiku 4.5. Honesty: dev-cost methods differ (see decision.honestyCaveat)."
+}

@@ -1,0 +1,40 @@
+{
+  "v0": {
+    "message": "Cloud baseline (PROJECTION) — answer via gpt-4o-mini; cost = same prompts priced at OpenAI rates, not a live API run",
+    "boxes": {
+      "llm_answer": "answered via OpenAI gpt-4o-mini (cloud) — PDM shows the $ and suggests a cheaper local model"
+    }
+  },
+  "v1": {
+    "message": "Go fully local — switch the answer model to qwen3:8b (Ollama); cost → $0, nothing leaves the machine",
+    "boxes": {
+      "llm_answer": "gpt-4o-mini → qwen3:8b (local); per-answer $ drops to zero"
+    }
+  },
+  "v2": {
+    "message": "Adopt Rerank box (benchmark winner by work/token: Haiku 4.5)",
+    "boxes": {
+      "rerank": "new lexical reranker — reorder retrieved chunks by query-keyword overlap before the prompt"
+    }
+  },
+  "v3": {
+    "message": "Optimize Query rewrite — drop the LLM, it cost more tokens than the answer",
+    "boxes": {
+      "rewrite": "LLM call replaced with a zero-token stop-word keyword filter (PDM showed it burning ~1.6k tokens/run)"
+    }
+  },
+  "v4": {
+    "message": "Split Retrieve into Embed-query + Vector-search; run eval checks in parallel",
+    "boxes": {
+      "retrieve": "now a container — split into Embed query (GPU) + Vector search",
+      "embed_query": "new — embeds the query vector",
+      "vector_search": "new — top-k nearest-neighbour lookup",
+      "boxtests": "now runs in parallel with Cost guard",
+      "costguard": "now runs in parallel with Box tests"
+    }
+  },
+  "v3r2": {
+    "message": "Re-run on the same commit (mean/std) — no code change",
+    "boxes": {}
+  }
+}

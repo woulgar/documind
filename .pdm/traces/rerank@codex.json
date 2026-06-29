@@ -1,0 +1,690 @@
+{
+  "label": "rerank@codex",
+  "totalMs": 23805.9,
+  "lanes": 1,
+  "runAt": "2026-06-20T20:22:26Z",
+  "git": {
+    "commit": "9df9f6a",
+    "subject": "rerank@codex: add rerank box (coverage+frequency lexical rerank)"
+  },
+  "spans": [
+    {
+      "seq": 1,
+      "box": "ingest",
+      "func": "ingest",
+      "thread": 30424,
+      "startMs": 8.5,
+      "durationMs": 8323.6,
+      "lane": 0
+    },
+    {
+      "seq": 2,
+      "box": "load",
+      "func": "load_documents",
+      "thread": 30424,
+      "startMs": 8.5,
+      "durationMs": 2422.8,
+      "lane": 0
+    },
+    {
+      "seq": 3,
+      "box": "split",
+      "func": "split_documents",
+      "thread": 30424,
+      "startMs": 2431.3,
+      "durationMs": 0.1,
+      "lane": 0
+    },
+    {
+      "seq": 4,
+      "box": "embed",
+      "func": "embed_chunks",
+      "thread": 30424,
+      "startMs": 2431.4,
+      "durationMs": 4747.1,
+      "lane": 0
+    },
+    {
+      "seq": 5,
+      "box": "upsert",
+      "func": "add_to_chroma",
+      "thread": 30424,
+      "startMs": 7178.5,
+      "durationMs": 1153.6,
+      "lane": 0
+    },
+    {
+      "seq": 6,
+      "box": "query",
+      "func": "answer",
+      "thread": 30424,
+      "startMs": 8332.7,
+      "durationMs": 13043.1,
+      "lane": 0
+    },
+    {
+      "seq": 7,
+      "box": "rewrite",
+      "func": "rewrite_query",
+      "thread": 30424,
+      "startMs": 8332.7,
+      "durationMs": 5147.5,
+      "lane": 0
+    },
+    {
+      "seq": 8,
+      "box": "retrieve",
+      "func": "retrieve",
+      "thread": 30424,
+      "startMs": 13480.2,
+      "durationMs": 2201.9,
+      "lane": 0
+    },
+    {
+      "seq": 9,
+      "box": "rerank",
+      "func": "rerank",
+      "thread": 30424,
+      "startMs": 15682.1,
+      "durationMs": 0.7,
+      "lane": 0
+    },
+    {
+      "seq": 10,
+      "box": "generate",
+      "func": "generate",
+      "thread": 30424,
+      "startMs": 15682.8,
+      "durationMs": 5693.0,
+      "lane": 0
+    },
+    {
+      "seq": 11,
+      "box": "build_prompt",
+      "func": "build_prompt",
+      "thread": 30424,
+      "startMs": 15682.8,
+      "durationMs": 0.1,
+      "lane": 0
+    },
+    {
+      "seq": 12,
+      "box": "llm_answer",
+      "func": "llm_answer",
+      "thread": 30424,
+      "startMs": 15682.9,
+      "durationMs": 5692.8,
+      "lane": 0
+    },
+    {
+      "seq": 13,
+      "box": "evalops",
+      "func": "evaluate",
+      "thread": 30424,
+      "startMs": 21375.8,
+      "durationMs": 2430.0,
+      "lane": 0
+    },
+    {
+      "seq": 14,
+      "box": "boxtests",
+      "func": "run_box_tests",
+      "thread": 30424,
+      "startMs": 21375.8,
+      "durationMs": 2429.9,
+      "lane": 0
+    },
+    {
+      "seq": 15,
+      "box": "load",
+      "func": "load_documents",
+      "thread": 30424,
+      "startMs": 21375.8,
+      "durationMs": 2429.8,
+      "lane": 0
+    },
+    {
+      "seq": 16,
+      "box": "split",
+      "func": "split_documents",
+      "thread": 30424,
+      "startMs": 23805.6,
+      "durationMs": 0.1,
+      "lane": 0
+    },
+    {
+      "seq": 17,
+      "box": "kpis",
+      "func": "record_kpis",
+      "thread": 30424,
+      "startMs": 23805.7,
+      "durationMs": 0.1,
+      "lane": 0
+    },
+    {
+      "seq": 18,
+      "box": "costguard",
+      "func": "cost_report",
+      "thread": 30424,
+      "startMs": 23805.8,
+      "durationMs": 0.0,
+      "lane": 0
+    }
+  ],
+  "resources": {
+    "perBox": {
+      "load": {
+        "cpuMean": 96.9,
+        "ramPeakMb": 169.5,
+        "gpuMean": 8.4,
+        "vramPeakMb": 6678.0,
+        "n": 12
+      },
+      "ingest": {
+        "cpuMean": 39.9,
+        "ramPeakMb": 148.3,
+        "gpuMean": 36.5,
+        "vramPeakMb": 6826.0,
+        "n": 28
+      },
+      "embed": {
+        "cpuMean": 8.2,
+        "ramPeakMb": 146.1,
+        "gpuMean": 51.2,
+        "vramPeakMb": 6826.0,
+        "n": 18
+      },
+      "upsert": {
+        "cpuMean": 90.0,
+        "ramPeakMb": 148.3,
+        "gpuMean": 31.0,
+        "vramPeakMb": 4667.0,
+        "n": 3
+      },
+      "query": {
+        "cpuMean": 6.1,
+        "ramPeakMb": 165.0,
+        "gpuMean": 59.2,
+        "vramPeakMb": 6677.0,
+        "n": 49
+      },
+      "rewrite": {
+        "cpuMean": 8.4,
+        "ramPeakMb": 164.6,
+        "gpuMean": 61.9,
+        "vramPeakMb": 4816.0,
+        "n": 19
+      },
+      "retrieve": {
+        "cpuMean": 5.0,
+        "ramPeakMb": 164.6,
+        "gpuMean": 34.1,
+        "vramPeakMb": 4665.0,
+        "n": 8
+      },
+      "generate": {
+        "cpuMean": 4.5,
+        "ramPeakMb": 165.0,
+        "gpuMean": 66.0,
+        "vramPeakMb": 6677.0,
+        "n": 22
+      },
+      "llm_answer": {
+        "cpuMean": 4.5,
+        "ramPeakMb": 165.0,
+        "gpuMean": 66.0,
+        "vramPeakMb": 6677.0,
+        "n": 22
+      },
+      "boxtests": {
+        "cpuMean": 92.9,
+        "ramPeakMb": 169.5,
+        "gpuMean": 18.8,
+        "vramPeakMb": 6677.0,
+        "n": 5
+      },
+      "evalops": {
+        "cpuMean": 92.9,
+        "ramPeakMb": 169.5,
+        "gpuMean": 18.8,
+        "vramPeakMb": 6677.0,
+        "n": 5
+      }
+    },
+    "peak": {
+      "cpuPeak": 106.0,
+      "ramPeakMb": 170.9,
+      "gpuPeak": 95.0,
+      "vramPeakMb": 6826.0
+    },
+    "samples": 83,
+    "gpu": true
+  },
+  "tokens": {
+    "perBox": {
+      "rewrite": {
+        "inputTokens": 47,
+        "outputTokens": 323,
+        "tokens": 370,
+        "calls": 1
+      },
+      "llm_answer": {
+        "inputTokens": 1061,
+        "outputTokens": 183,
+        "tokens": 1244,
+        "calls": 1
+      }
+    },
+    "calls": 2,
+    "inputTokens": 1108,
+    "outputTokens": 506,
+    "tokens": 1614,
+    "byProvider": {
+      "ollama": {
+        "tokens": 1614,
+        "calls": 2,
+        "model": "qwen3:4b"
+      }
+    },
+    "adapters": [
+      "langchain",
+      "ollama",
+      "openai",
+      "rawhttp"
+    ]
+  },
+  "custom": {
+    "kpis": [
+      {
+        "id": "retrieval_hit",
+        "unit": "0/1",
+        "box": "retrieve"
+      },
+      {
+        "id": "answer_quality",
+        "unit": "score",
+        "box": "llm_answer"
+      },
+      {
+        "id": "notes_indexed",
+        "unit": "docs"
+      }
+    ],
+    "records": [
+      {
+        "kpi": "retrieval_hit",
+        "tMs": 23805.8,
+        "value": 1.0,
+        "box": "retrieve",
+        "label": "rerank@codex"
+      },
+      {
+        "kpi": "answer_quality",
+        "tMs": 23805.8,
+        "value": 1.0,
+        "box": "llm_answer",
+        "label": "rerank@codex"
+      },
+      {
+        "kpi": "notes_indexed",
+        "tMs": 23805.8,
+        "value": 5,
+        "label": "rerank@codex"
+      }
+    ]
+  },
+  "flow": {
+    "schemaVersion": 4,
+    "project": {
+      "name": "DocuMind",
+      "stack": "python \u00b7 langchain \u00b7 ollama \u00b7 chroma",
+      "definition": "A fully local, private document Q&A assistant. Point it at your PDFs; ask questions in natural language; answers are grounded in your own documents with citations. Nothing leaves your machine \u2014 embeddings and generation both run on local Ollama models, vectors live in a local Chroma store."
+    },
+    "boxes": [
+      {
+        "id": "ingest",
+        "code": "L00B00",
+        "layer": 0,
+        "name": "Ingestion pipeline",
+        "parent": null,
+        "parallel": false,
+        "loop": false,
+        "connectors": [],
+        "children": [
+          "load",
+          "split",
+          "embed",
+          "upsert"
+        ],
+        "maps": [
+          "pipeline.py::ingest"
+        ]
+      },
+      {
+        "id": "query",
+        "code": "L00B01",
+        "layer": 0,
+        "name": "Query & answer",
+        "parent": null,
+        "parallel": false,
+        "loop": false,
+        "connectors": [
+          "ingest"
+        ],
+        "children": [
+          "rewrite",
+          "retrieve",
+          "rerank",
+          "generate"
+        ],
+        "maps": [
+          "pipeline.py::answer"
+        ]
+      },
+      {
+        "id": "evalops",
+        "code": "L00B02",
+        "layer": 0,
+        "name": "Eval & ops",
+        "parent": null,
+        "parallel": false,
+        "loop": false,
+        "connectors": [
+          "query"
+        ],
+        "children": [
+          "boxtests",
+          "kpis",
+          "costguard"
+        ],
+        "maps": [
+          "eval.py::evaluate"
+        ]
+      },
+      {
+        "id": "load",
+        "code": "L01B00",
+        "layer": 1,
+        "name": "Load PDFs",
+        "parent": "ingest",
+        "connectors": [],
+        "children": [],
+        "maps": [
+          "loader.py::load_documents"
+        ],
+        "test": {
+          "id": "load",
+          "kind": "execution",
+          "deterministic": true,
+          "description": "Loads the bundled rulebooks",
+          "expect": ">= 2 source documents"
+        }
+      },
+      {
+        "id": "split",
+        "code": "L01B01",
+        "layer": 1,
+        "name": "Split into chunks",
+        "parent": "ingest",
+        "connectors": [
+          "load"
+        ],
+        "children": [],
+        "maps": [
+          "loader.py::split_documents"
+        ]
+      },
+      {
+        "id": "embed",
+        "code": "L01B02",
+        "layer": 1,
+        "name": "Embed (GPU)",
+        "parent": "ingest",
+        "connectors": [
+          "split"
+        ],
+        "children": [],
+        "maps": [
+          "embeddings.py::embed_chunks"
+        ],
+        "model": "qwen3-embedding:4b"
+      },
+      {
+        "id": "upsert",
+        "code": "L01B03",
+        "layer": 1,
+        "name": "Upsert to Chroma",
+        "parent": "ingest",
+        "connectors": [
+          "embed"
+        ],
+        "children": [],
+        "maps": [
+          "vectordb.py::add_to_chroma"
+        ]
+      },
+      {
+        "id": "retrieve",
+        "code": "L01B04",
+        "layer": 1,
+        "name": "Retrieve top-k",
+        "parent": "query",
+        "connectors": [],
+        "children": [],
+        "maps": [
+          "retriever.py::retrieve"
+        ],
+        "test": {
+          "id": "retrieve",
+          "kind": "execution",
+          "deterministic": true,
+          "description": "Top-k search for the fixed query",
+          "expect": "k chunks, monopoly rulebook ranked first"
+        },
+        "kpis": [
+          {
+            "id": "retrieval_hit",
+            "name": "Retrieval hit",
+            "unit": "0/1"
+          }
+        ]
+      },
+      {
+        "id": "rewrite",
+        "code": "L01B05",
+        "layer": 1,
+        "name": "Query rewrite",
+        "parent": "query",
+        "connectors": [
+          "retrieve"
+        ],
+        "children": [],
+        "maps": [
+          "retriever.py::rewrite_query"
+        ],
+        "model": "qwen3:4b",
+        "instruction": "Rewrite vague questions into a keyword-rich query before retrieval. Keep it cheap \u2014 use the small local model; this box must stay well under the answer box in cost."
+      },
+      {
+        "id": "rerank",
+        "code": "L01B10",
+        "layer": 1,
+        "name": "Rerank chunks",
+        "parent": "query",
+        "connectors": [
+          "retrieve"
+        ],
+        "children": [],
+        "maps": [
+          "retriever.py::rerank"
+        ],
+        "test": {
+          "id": "rerank",
+          "kind": "execution",
+          "deterministic": true,
+          "description": "Lexically reranks retrieved chunks for a fixed query",
+          "expect": "most on-topic chunk appears first without model calls"
+        }
+      },
+      {
+        "id": "generate",
+        "code": "L01B06",
+        "layer": 1,
+        "name": "Generate answer",
+        "parent": "query",
+        "connectors": [
+          "rerank"
+        ],
+        "children": [
+          "build_prompt",
+          "llm_answer"
+        ],
+        "maps": [
+          "generate.py::generate"
+        ]
+      },
+      {
+        "id": "build_prompt",
+        "code": "L02B00",
+        "layer": 2,
+        "name": "Build prompt",
+        "parent": "generate",
+        "connectors": [],
+        "children": [],
+        "maps": [
+          "generate.py::build_prompt"
+        ],
+        "test": {
+          "id": "build_prompt",
+          "kind": "execution",
+          "deterministic": true,
+          "description": "Prompt embeds the retrieved context + question",
+          "expect": "prompt contains all k chunks and the question"
+        }
+      },
+      {
+        "id": "llm_answer",
+        "code": "L02B01",
+        "layer": 2,
+        "name": "LLM answer (GPU)",
+        "parent": "generate",
+        "connectors": [
+          "build_prompt"
+        ],
+        "children": [],
+        "maps": [
+          "generate.py::llm_answer"
+        ],
+        "model": "qwen3:8b",
+        "kpis": [
+          {
+            "id": "answer_quality",
+            "name": "Answer quality",
+            "unit": "score"
+          }
+        ]
+      },
+      {
+        "id": "boxtests",
+        "code": "L01B07",
+        "layer": 1,
+        "name": "Box tests",
+        "parent": "evalops",
+        "connectors": [],
+        "children": [],
+        "maps": [
+          "eval.py::run_box_tests"
+        ],
+        "test": {
+          "id": "boxtests",
+          "kind": "execution",
+          "deterministic": true,
+          "description": "Runs every box's deterministic check",
+          "expect": "all box tests pass"
+        }
+      },
+      {
+        "id": "kpis",
+        "code": "L01B08",
+        "layer": 1,
+        "name": "Record KPIs",
+        "parent": "evalops",
+        "connectors": [
+          "boxtests"
+        ],
+        "children": [],
+        "maps": [
+          "eval.py::record_kpis"
+        ]
+      },
+      {
+        "id": "costguard",
+        "code": "L01B09",
+        "layer": 1,
+        "name": "Cost guard",
+        "parent": "evalops",
+        "connectors": [
+          "kpis"
+        ],
+        "children": [],
+        "maps": [
+          "eval.py::cost_report"
+        ],
+        "instruction": "Fail the run if a single answer costs more than the budget. Read per-box token counts from the latest trace and compare against COST_BUDGET_USD in config."
+      }
+    ]
+  },
+  "boxHashes": {
+    "ingest": "4fcb705462b3",
+    "query": "b8be02008e13",
+    "evalops": "8872d3c10f3c",
+    "load": "7affca07591e",
+    "split": "eb6fb3ddf1c1",
+    "embed": "063441a84252",
+    "upsert": "51431d97a725",
+    "retrieve": "b37bf6004f6b",
+    "rewrite": "6cc269f18358",
+    "rerank": "3a7212de93b4",
+    "generate": "8cf4fe8767e0",
+    "build_prompt": "dfecb958807a",
+    "llm_answer": "8c050d316d79",
+    "boxtests": "e5ce3e284306",
+    "kpis": "4ef0feed0798",
+    "costguard": "98c9b93f3888"
+  },
+  "dev": {
+    "vsLabel": "v1",
+    "changedBoxes": [
+      "query"
+    ],
+    "addedBoxes": [
+      "rerank"
+    ],
+    "removedBoxes": [],
+    "agentTokens": 55891,
+    "agentDurationMs": 0,
+    "commitGapMs": 0,
+    "message": null,
+    "summaries": {},
+    "estimated": false,
+    "source": "codex-exec self-report (55,891 tokens)"
+  },
+  "boxLastChanged": {
+    "ingest": "rerank@codex",
+    "query": "rerank@codex",
+    "evalops": "rerank@codex",
+    "load": "rerank@codex",
+    "split": "rerank@codex",
+    "embed": "rerank@codex",
+    "upsert": "rerank@codex",
+    "retrieve": "rerank@codex",
+    "rewrite": "rerank@codex",
+    "rerank": "rerank@codex",
+    "generate": "rerank@codex",
+    "build_prompt": "rerank@codex",
+    "llm_answer": "rerank@codex",
+    "boxtests": "rerank@codex",
+    "kpis": "rerank@codex",
+    "costguard": "rerank@codex"
+  }
+}
