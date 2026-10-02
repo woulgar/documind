@@ -45,8 +45,7 @@ timing are comparable across versions.
 
 1. Install [Ollama](https://ollama.com) and pull the models (all local, free):
    ```bash
-   ollama pull qwen3:8b              # answer model
-   ollama pull qwen3:4b              # (legacy) query-rewrite model
+   ollama pull gemma4:26b            # owner-approved answer model
    ollama pull qwen3-embedding:4b    # embeddings
    ```
 2. Install the Python deps:
@@ -83,3 +82,19 @@ these runs:
 
 [MIT](LICENSE) — the code. The board-game rulebooks used in the original measurements
 are not included and remain the property of their respective owners.
+
+
+<!-- company-project-standard:v1 -->
+## Company documentation standard
+
+Read [PROJECT_STANDARDS.md](C:/MyCodes/company/docs/PROJECT_STANDARDS.md) for shared file formats and new-project templates.
+Existing project requirements, storage contracts and model policies remain authoritative;
+this reference does not migrate domain data or change those requirements.
+Read AGENTS.md, constitution.md and HANDOVER.md before working. Record handovers with
+evidence and UTC timestamps. Do not publish or create a remote for a local-only project.
+<!-- /company-project-standard -->
+
+## Owner local generation policy (T-0059)
+
+In this company workspace, owned local text generation uses the shared `company/runner/local_ai_policy.py` allowlist. General summaries and answers default to `gemma4:26b`; `qwen2.5-coder:14b` remains an allowed explicit selection. Missing company policy or an unapproved model override stops the request before inference. This local workspace integration has no independent fallback. Existing cloud pricing and historical measurements are unchanged.
+The embedding/index contract remains separate: `qwen3-embedding:4b` is preserved pending an explicit capability-compatible decision; no stored vector index is migrated. Query rewriting and reranking are deterministic.

@@ -11,13 +11,13 @@ def build_prompt(query, docs):
     return (
         "Answer the question using ONLY the context below. "
         "Cite sources like [file p.N]. If the answer isn't in the context, say you don't know.\n\n"
-        f"Context:\n{context}\n\nQuestion: {query}\nAnswer: /no_think"
+        f"Context:\n{context}\n\nQuestion: {query}\nAnswer:"
     )
 
 
 def llm_answer(prompt):
     """Generate the grounded answer with the local answer model (GPU)."""
-    resp = ollama.chat(model=config.LLM_MODEL, messages=[{"role": "user", "content": prompt}])
+    resp = ollama.chat(model=config.require_model(config.LLM_MODEL), think=False, messages=[{"role": "user", "content": prompt}])
     return re.sub(r"<think>.*?</think>", "", resp["message"]["content"], flags=re.DOTALL).strip()
 
 
